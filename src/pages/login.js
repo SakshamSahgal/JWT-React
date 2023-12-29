@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faRightToBracket} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
+import Cookies from 'js-cookie';
 
 const Login = () => {
 
@@ -17,7 +17,12 @@ const Login = () => {
             console.log(response.data);
             if(response.data.success == false)
                 alert(response.data.message);
-
+            else
+            {
+                //set token in cookies using js-cookie
+                Cookies.set('token', response.data.token);
+                window.location.href = '/home';
+            }
         }).catch((err) => {
             console.log(err);
         });
