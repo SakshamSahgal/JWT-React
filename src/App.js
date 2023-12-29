@@ -1,7 +1,8 @@
+import Login from "./Components/login";
 
 function App() {
   return (
-    <h1></h1>
+    <Login/>
   );
 }
 
