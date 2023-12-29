@@ -16,7 +16,11 @@ const Login = () => {
         axios.post(process.env.REACT_APP_SERVER_HOSTED_ON + '/login', { username : username, password : password }).then((response) => {
             console.log(response.data);
             if(response.data.success == false)
+            {
                 alert(response.data.message);
+                //remove token from cookies (if any)
+                Cookies.remove('token');
+            }
             else
             {
                 //set token in cookies using js-cookie
@@ -28,6 +32,13 @@ const Login = () => {
         });
     };
 
+    //handle enter key press
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleLogin();
+        }
+    };
+
     return (
         <div className="d-flex align-items-center justify-content-center vh-100">
             <div className="card col-md-6 col-lg-4 shadow mb-5 rounded">
@@ -37,11 +48,11 @@ const Login = () => {
                 <div className="card-body">
                     <div className="mb-3">
                         <label htmlFor="username" className="form-label"> <FontAwesomeIcon icon={faUser} className="me-2" /> Username </label>
-                        <input type="text" className="form-control" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                        <input type="text" className="form-control" id="username" value={username} onChange={(e) => setUsername(e.target.value)}  onKeyPress={handleKeyPress}/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label"> <FontAwesomeIcon icon={faLock} className="me-2" /> Password </label>
-                        <input type="password" className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <input type="password" className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyPress={handleKeyPress} />
                     </div>
                 </div>
                 <div className="card-footer">

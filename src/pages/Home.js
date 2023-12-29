@@ -12,7 +12,6 @@ function Home() {
             headers: {
                 Authorization: "Bearer " + Cookies.get('token')
             }
-
         }).then(response => {
             console.log(response.data);
             if(response.data.success == false)
@@ -27,8 +26,13 @@ function Home() {
         }).catch(error => {
                 console.log(error);
         })
-
+ 
     }, []);
+
+    const Logout = () => {
+        Cookies.remove('token');
+        window.location.href = '/';
+    }
 
     return (data == null ? (
         <div className="Home">
@@ -39,6 +43,7 @@ function Home() {
         <div className="Home">
             <h1>Home</h1>
             <p>{data}</p>
+            <button className="btn btn-danger" onClick={Logout}>Logout</button>
         </div>
     )
     );
