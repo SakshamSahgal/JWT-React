@@ -7,6 +7,10 @@ import Cookies from 'js-cookie';
 
 const Login = () => {
 
+    //check if token is present in cookies, if yes then redirect to home page
+    if(Cookies.get('token'))
+        window.location.href = '/home';
+    
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const handleLogin = () => {
